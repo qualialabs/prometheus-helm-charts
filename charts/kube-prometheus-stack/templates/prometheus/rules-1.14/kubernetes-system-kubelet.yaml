@@ -48,6 +48,7 @@ spec:
 {{- if .Values.defaultRules.additionalRuleLabels }}
 {{ toYaml .Values.defaultRules.additionalRuleLabels | indent 8 }}
 {{- end }}
+{{- if .Values.defaultRules.overrides.kubernetesSystem.KubeletTooManyPods.enabled }}
     - alert: KubeletTooManyPods
       annotations:
         description: Kubelet '{{`{{`}} $labels.node {{`}}`}}' is running at {{`{{`}} $value | humanizePercentage {{`}}`}} of its Pod capacity.
@@ -64,6 +65,7 @@ spec:
       for: 15m
       labels:
         severity: warning
+{{- end }}
 {{- if .Values.defaultRules.additionalRuleLabels }}
 {{ toYaml .Values.defaultRules.additionalRuleLabels | indent 8 }}
 {{- end }}
